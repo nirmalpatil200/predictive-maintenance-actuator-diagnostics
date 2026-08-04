@@ -10,9 +10,9 @@ understand or modify the model directly.
 | Block | Type | Parameters | Purpose |
 |---|---|---|---|
 | `Vin` | Constant | Value = `Vin_amp` (24V) | Fixed supply voltage driving the electrical loop |
-| `Friction_Fault_Step` | Step | Time = 8, Before = 0, After = `1.5*Bnom` | Outputs the friction fault delta — 0 before t=8s, jumps to +150% of nominal friction after |
+| `Friction_Fault_Step` | Step | Time = 8, Before = 0, After = `1.5*Bnom` | Outputs the friction fault delta, 0 before t=8s, jumps to +150% of nominal friction after |
 | `Bnom_Const` | Constant | Value = `Bnom` (0.0004) | Nominal (healthy) friction/damping coefficient |
-| `Thermal_Fault_Step` | Step | Time = 14, Before = 0, After = `0.8*Rnom` | Outputs the resistance fault delta — 0 before t=14s, jumps to +80% of nominal resistance after |
+| `Thermal_Fault_Step` | Step | Time = 14, Before = 0, After = `0.8*Rnom` | Outputs the resistance fault delta, 0 before t=14s, jumps to +80% of nominal resistance after |
 | `Rnom_Const` | Constant | Value = `Rnom` (0.8) | Nominal (healthy) stator resistance |
 | `Tload_Const` | Constant | Value = `Tload` (0.02) | Constant mechanical load torque on the actuator |
 
@@ -20,8 +20,8 @@ understand or modify the model directly.
 
 | Block | Type | Parameters | Purpose |
 |---|---|---|---|
-| `B_t_Sum` | Add | Inputs = `++` | Composes `B(t) = Bnom + friction_delta` — the live, time-varying friction coefficient |
-| `R_t_Sum` | Add | Inputs = `++` | Composes `R(t) = Rnom + thermal_delta` — the live, time-varying stator resistance |
+| `B_t_Sum` | Add | Inputs = `++` | Composes `B(t) = Bnom + friction_delta`, the live, time-varying friction coefficient |
+| `R_t_Sum` | Add | Inputs = `++` | Composes `R(t) = Rnom + thermal_delta`, the live, time-varying stator resistance |
 
 ## Electrical loop (current dynamics)
 
@@ -53,8 +53,8 @@ Implements `J * domega/dt = Kt*i - B(t)*omega - Tload`
 |---|---|---|---|
 | `Current_Logger` | To Workspace | Variable = `motor_current`, format = Timeseries | Logs current signal for post-processing in `run_predictive_diagnostics.m` |
 | `Speed_Logger` | To Workspace | Variable = `motor_speed`, format = Timeseries | Logs speed signal for post-processing |
-| `Current_Scope` | Scope | — | Live view of current during simulation |
-| `Speed_Scope` | Scope | — | Live view of speed during simulation |
+| `Current_Scope` | Scope | None | Live view of current during simulation |
+| `Speed_Scope` | Scope | None | Live view of speed during simulation |
 
 ## Nominal parameter values
 
